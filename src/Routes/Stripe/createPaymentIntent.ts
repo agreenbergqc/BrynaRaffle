@@ -6,17 +6,16 @@ const stripe = new Stripe(STRIPE_PRIVATE_KEY, { apiVersion: '2022-11-15' });
 
 export const createPaymentIntent = async (req: Request, resp: Response) => {
     const { amount } = req.body
+
     const paymentIntent = stripe.paymentIntents.create({
         amount,
         currency: 'usd',
         payment_method_types: ['card'],
     });
 
-    paymentIntent.then((intent) => {
-        resp.json(intent)
-    }).catch((e) => {
-        resp.status(400).json(e)
-    })
+    paymentIntent
+        .then(resp.json)
+        .catch(resp.status(400).json)
 
 
 }
