@@ -1,4 +1,4 @@
-import { Request, response, Response } from "express";
+import { Request, Response } from "express";
 import { STRIPE_PRIVATE_KEY } from "../../Constants";
 import { getDB, setDB } from "../../DB/localDB";
 

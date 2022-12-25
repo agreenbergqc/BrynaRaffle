@@ -1,5 +1,4 @@
 import express from 'express';
-import { STRIPE_PRIVATE_KEY } from './Constants';
 import { createPaymentIntent } from './Routes/Stripe/createPaymentIntent';
 import { getAvailableRange } from './Routes/getAvailableRange';
 import { getStripePublishableKey } from './Routes/Stripe/getStripePublishableKey';
@@ -9,10 +8,11 @@ import { chargePayment } from './Routes/Stripe/chargePayment';
 
 
 var cors = require('cors')
-const stripe = require('stripe')(STRIPE_PRIVATE_KEY)
+
 
 
 const app = express();
+
 app.use(cors())
 const port = 8080;
 app.use(express.json());
