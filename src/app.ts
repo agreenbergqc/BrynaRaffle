@@ -14,7 +14,7 @@ const stripe = require('stripe')(STRIPE_PRIVATE_KEY)
 
 const app = express();
 app.use(cors())
-const port = 80;
+const port = 8080;
 app.use(express.json());
 app.use(express.static("public"));
 
