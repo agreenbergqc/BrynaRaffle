@@ -6,8 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts",
-    "start": "ts-node-dev src/app.ts",
-    "build": "tsc src/app.ts --outDir build"
+    "start:dev": "ts-node-dev src/app.ts",
+    "start:prod": "node build/app.js",
+    "start": "npm run build && npm run start:prod",
+    "build": "tsc src/app.ts --esModuleInterop --outDir build"
   },
   "keywords": [],
   "author": "",
