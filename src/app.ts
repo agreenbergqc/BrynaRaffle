@@ -1,5 +1,4 @@
 import express from 'express';
-import { buyTicket } from './Routes/buyTicket';
 import { STRIPE_PRIVATE_KEY } from './Constants';
 import { createPaymentIntent } from './Routes/Stripe/createPaymentIntent';
 import { getAvailableRange } from './Routes/getAvailableRange';

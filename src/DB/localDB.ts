@@ -1,6 +1,4 @@
 const { Storage } = require('@google-cloud/storage');
-import data from '../../db.json'
-
 const storage = new Storage();
 
 export type TDB = {
@@ -11,8 +9,6 @@ export type TDB = {
     reservedDateTime: any;
     transactionId: any;
 }
-
-let DB = [...data]
 
 export const getDB = () => new Promise<TDB[]>((resolve, reject) => {
     let data = ''
