@@ -23,7 +23,7 @@ export const sendEmail = (emailProps: ISendEmailProps) => new Promise<any>(async
     const message = {
         from: "ishey4@gmail.com",
         to: emailProps.toAddress,
-        subject: emailProps.body,
+        subject: emailProps.subject,
         text: emailProps.body
     }
 
