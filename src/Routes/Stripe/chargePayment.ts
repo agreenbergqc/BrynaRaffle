@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import { sendEmail } from "../../API/Email/SendEmail";
 import { STRIPE_PRIVATE_KEY } from "../../Constants";
 import { getDB, setDB } from "../../DB/localDB";
-import { getTickets, getTicketSum } from "../../utils";
+import { getTickets } from "../../utils";
+import { EmailTemplate, IEmailTemplateProps } from "../Email/EmailTemplate";
 
 const stripe = require('stripe')(STRIPE_PRIVATE_KEY);
 
@@ -32,7 +33,13 @@ export const chargePayment = async (req: Request, resp: Response) => {
         setDB([...otherTickets, ...myTickets.map((ticket) => ({ ...ticket, receipt_url, transactionId: id, status: 'Paid' }))])
 
         //need to create an email templater. 
-        sendEmail({ body: "testEmail", subject: "Raffle Ticket", toAddress: email })
+        const emailProps: IEmailTemplateProps = {
+            amount,
+            email,
+            receipt_url,
+            tickets: myTickets
+        }
+        sendEmail({ body: EmailTemplate(emailProps), subject: "Raffle Ticket", toAddress: email })
 
         resp.json(charge)
     }).catch((e) => { resp.status(500).json(e) });

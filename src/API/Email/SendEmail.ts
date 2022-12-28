@@ -20,8 +20,6 @@ export const sendEmail = (emailProps: ISendEmailProps) => new Promise<any>(async
         }
     })
 
-    console.log("env", { env: process.env })
-
     const message = {
         from: "ishey4@gmail.com",
         to: emailProps.toAddress,
