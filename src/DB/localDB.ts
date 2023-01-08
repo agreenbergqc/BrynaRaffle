@@ -13,7 +13,7 @@ export type TDataSet = {
 export const getDB = () => new Promise<TDataSet[]>((resolve, reject) => {
     let data = ''
     const dataReader = storage.bucket('brynaraffle').file('db.json').createReadStream();
-    
+
     dataReader.on('data', (d) => data += d);
     dataReader.on('end', () => resolve(JSON.parse(data)))
     dataReader.on('error', (e) => {
@@ -22,4 +22,4 @@ export const getDB = () => new Promise<TDataSet[]>((resolve, reject) => {
     })
 });
 
-export const setDB = (newDB) => storage.bucket('brynaraffle').file('db.json').save(JSON.stringify(newDB))
+export const setDB = (newDB: TDataSet[]) => storage.bucket('brynaraffle').file('db.json').save(JSON.stringify(newDB))

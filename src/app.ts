@@ -5,6 +5,7 @@ import { getStripePublishableKey } from './Routes/Stripe/getStripePublishableKey
 import { getTicket } from './Routes/getTicket';
 import { checkForReservedTickets } from './Routes/checkForReservedTickets';
 import { chargePayment } from './Routes/Stripe/chargePayment';
+import { removeTicket } from './Routes/removeTicket';
 
 
 var cors = require('cors')
@@ -33,6 +34,8 @@ app.get('/getAvailableRange', getAvailableRange)
 
 app.post('/checkForReservedTickets', checkForReservedTickets);
 app.post('/getTicket', getTicket);
+app.post('/removeTicket', removeTicket);
+
 
 app.post('/chargePayment', chargePayment);
 
