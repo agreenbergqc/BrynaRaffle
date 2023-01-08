@@ -14,10 +14,15 @@ export const chargePayment = async (req: Request, resp: Response) => {
 
         const myTickets = await getTickets(ticketIds, userId)
         const otherTickets = (await getDB()).filter(({ uid }) => !ticketIds.includes(uid))
-        const ticketSum = (myTickets.reduce((sum, { ticketNumber }) => sum + ticketNumber, 0)) * 100
+        const ticketSum = (myTickets.reduce((sum, { ticketNumber }) => sum + ticketNumber || 0, 0)) * 100
         const validation = myTickets.length === ticketIds.length && ticketSum === amount;
 
-        const ticketsString = myTickets.map(({ ticketNumber }) => ticketNumber).join(",")
+        const ticketsString = myTickets.map(({ ticketNumber }) => ticketNumber).join(",");
+
+        if (!validation) {
+            resp.status(500).json({ message: "Error validating tickets. Please refresh and try again" })
+            return;
+        }
 
         stripe.charges.create({
             amount,

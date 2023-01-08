@@ -11,11 +11,15 @@ export const getTicket = async (req: Request, resp: Response) => {
             return
         }
 
-        const unclaimedTicket = null
         const availableTickets = db.filter(({ userId, email }) => (!userId && !email))
-        const randomTicketIndex = Math.round(Math.random() * availableTickets.length - 1)
+        const randomTicketIndex = Math.round(Math.random() * availableTickets.length)
 
-        const reservedTicket = unclaimedTicket || availableTickets[randomTicketIndex]
+        if (!availableTickets[randomTicketIndex].uid) {
+            resp.status(500).json({ message: "error getting ticket, please try again" })
+            return;
+        }
+
+        const reservedTicket = availableTickets[randomTicketIndex]
 
         const objectToWrite = { ...reservedTicket, userId: uId, email: email, reservedDateTime: Date.parse(Date()) }
 
