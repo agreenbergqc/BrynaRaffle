@@ -12,7 +12,7 @@ export type TDataSet = {
 
 export const getDB = () => new Promise<TDataSet[]>((resolve, reject) => {
     let data = ''
-    const dataReader = storage.bucket('brynaraffle').file('db.json').createReadStream();
+    const dataReader = storage.bucket('aryehgreenberg').file('db.json').createReadStream();
 
     dataReader.on('data', (d) => data += d);
     dataReader.on('end', () => resolve(JSON.parse(data)))
